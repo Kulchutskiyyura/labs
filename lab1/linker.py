@@ -5,14 +5,16 @@ from check_function import *
 from token import Token
 def linker(string):
      print("string before separation",string)
-     string=string.replace(" ","")
+     #string=string.replace(" ","")
      print("string after space remove",string)
      list_with_list=separator(string,"*","/","=","-","+","(",")",",",";","{","}","|","&","#","$",">","<","^","!",main_sep="₴")
      token_list=[]
      print("list after separation ",list_with_list)
      for i in range(len(list_with_list)) :
+         for_string=list_with_list[i]
+         list_with_list[i]=list_with_list[i].replace(" ","")
          if is_string(list_with_list[i]):
-             token_list.append(Token(list_with_list[i][1:-1],STRING))
+             token_list.append(Token(for_string[1:-1],STRING))
          
          elif cheack_if_number(list_with_list[i]):
              token_list.append(Token(list_with_list[i],NUMBER))
@@ -44,6 +46,6 @@ def linker(string):
                     token_list.append(Token(list_with_list[i],IF))
                 else:
                     token_list.append(Token(list_with_list[i],VAR))
-
+    
      return token_list
 

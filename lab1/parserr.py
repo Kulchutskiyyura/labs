@@ -4,6 +4,7 @@ from Statmen import Interpretator
 from Statmen import Asigment
 from Statmen import If_statment
 from Statmen import While_statment
+from Statmen import Function_statment 
 from constant import *
 from token import Token
 from separator import separator
@@ -79,10 +80,24 @@ def parser(list_of_token):
                     token_index+=next
                  else:
                      token_index+=next
-                 
+        elif list_of_token[token_index]._typee==FUNCTION:
+            if (list_of_token[token_index+1]._value!="(" or list_of_token[token_index+1]._typee!=BREAK) :
+                 print("dont have ( after function (parser)")
+                 return None
+            function_statment=Function_statment(list_of_token[token_index:])
+            next= function_statment.next()
+            if next==None :
+                    break
+            else:
+                    print("next=",next)
+                    print("token index",token_index)
+                    print("list_of_token",list_of_token)
+                    token_index+=next        
         elif list_of_token[token_index]._typee==BREAK:
             if token_index+1<len(list_of_token):
                 token_index+=1
             else:
                 break
+        
+                    
 

@@ -105,6 +105,28 @@ class While_statment(Statment):
                   return self.index_end_while+1 if self.index_end_while+1<len(self.list_of_token) else None
              else:
                  return 0
+class Function_statment(Statment):
+    def __init__(self, list_of_token):
+           self.index=find_index_of_token(list_of_token,END,BREAK)
+           self.id=list_of_token[0]._value
+           interpretator=Interpretator(list_of_token[0:self.index])
+           self.value=interpretator.var_defenition()
+           print("self.value(asigment)", self.value)
+           self.list_of_token=list_of_token
+    def next(self):
+        if self.value==None:
+            print("asigment value is none")
+            return None
+           
+        if id==None:
+            print("asigment id is none")
+            return None
+        print("function next")
+        if self.index+1<len( self.list_of_token):
+             return self.index+1
+        return None
+
+
 
     
 
