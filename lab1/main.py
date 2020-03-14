@@ -17,6 +17,10 @@ while 1:
             st=text.replace(" ","")
             if st[len(VAR)]!=EQ:
                 text=text[0:len(VAR)]+"₴"+   text[len(VAR):]
+         elif text[0:len(FUN)]==FUN:
+            st=text.replace(" ","")
+            if st[len(VAR)]!=EQ:
+                text=text[0:len(FUN)]+"₴"+   text[len(FUN):]
          main_program+=text
     ##print(var_dict)
 #list_with_program=separetor(main_program,"{","}",)
@@ -24,6 +28,7 @@ while 1:
 #var₴x=4;if(x$5){x=10;}elif(x#4){x=18;}elif(x$4){x=190;}else{x=45;}
 #main_program='var₴x=21;if(x&0){x=10;}elif(x#4&x>20){x=18;}elif(x$4){x=190;}else{x=45;} if(x>12){}'
 #main_program='var₴x=f(4+5,8,4+9);'
+main_program="fun₴m(a,b,c){var₴x=4; print(x);}  var₴x=10; m(4,5,8); print(x);"
 list_with_token=linker(main_program)
 print("main text" ,list_with_token)
 parser(list_with_token)

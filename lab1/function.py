@@ -1,12 +1,12 @@
 from constant import*
 from token import Token
 from check_function import cheack_if_number
-
-
+import parserr
 
 def run_function(function):
-    if function[0]._value not in funct_dict:
+    if function[0]._value not in funct_dict and function[0]._value not in user_funct_dict:
         return None
+
     if function[0]._value=="print":
         return_value=Print(*function[1:])
         return return_value
@@ -37,6 +37,14 @@ def run_function(function):
             return None
         return_value=Input(function[1])
         return return_value
+    else:
+        global local_var_dict
+        if user_funct_dict[function[0]._value].get(len(function[1:])) !=None:
+            for i in range(len(function[1:])):
+                local_var_dict[function[0]._value]=user_funct_dict[function[0]._value][len(function[1:])][0][i]
+            return_value=parserr.parser(user_funct_dict[function[0]._value][len(function[1:])][1])
+            local_var_dict={}
+            return return_value
 
 
 

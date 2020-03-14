@@ -6,6 +6,7 @@ from expresion import Interpretator
 from expresion import find_index_of_token
 from expresion import rfind_index_of_token
 from expresion import find_end_of_brackets_index 
+from expresion import find_function_argument
 #from math import a
 
 class Statment(ABC):
@@ -28,7 +29,13 @@ class Asigment(Statment):
         self.value=interpretator.var_defenition()
         print("self.value(asigment)", self.value)
         self.list_of_token=list_of_token
-       
+        self.eror=False
+        if local_var_dict.get(self.id)!=None:
+            self.local_varible=True
+        elif var_dict.get(self.id)!=None:
+            self.local_var=False
+        else:
+            self.eror=True
     def next(self):
        
         if self.value==None:
@@ -39,7 +46,14 @@ class Asigment(Statment):
             print("asigment id is none")
             return None
         print("next_as")
-        var_dict[self.id]=self.value
+        if self.eror==False:
+            if self.local_var:
+                local_var_dict[self.id]=self.value
+            else:
+                var_dict[self.id]=self.value
+        else:
+            pass
+
         if self.index+1<len( self.list_of_token):
              return self.index+1
         return None
@@ -125,6 +139,35 @@ class Function_statment(Statment):
         if self.index+1<len( self.list_of_token):
              return self.index+1
         return None
+class Function_definition_statment(Statment):
+    def __init__(self, list_of_token):
+        #додати перевірку на неоднаковість параметрів
+      
+        self.id=list_of_token[0]._value
+        self.eror=False
+        index_of_first_bracket=find_index_of_token(list_of_token,"(",BREAK)
+        index_of_second_bracket=find_index_of_token(list_of_token,")",BREAK)
+        self.number_of_del_token=2
+        del list_of_token[index_of_first_bracket]
+        del list_of_token[index_of_second_bracket-1]
+        self.index_begin_fun=find_index_of_token(list_of_token,"{",BREAK)
+        self.index_end_fun=find_end_of_brackets_index(list_of_token,"{","}")
+        self.function_argument=find_function_argument(list_of_token[: self.index_begin_fun])
+        if (user_funct_dict.get(self.id)!=None and user_funct_dict[self.id].get(len(self.function_argument))!=None )or funct_dict.get(self.id)!=None:
+            self.eror=True
+        self.list_of_token=list_of_token
+    def next(self):
+        if self.eror:
+            return 
+        if user_funct_dict.get(self.id)==None:
+            user_funct_dict[self.id]={}
+            #*self.function_argument
+        user_funct_dict[self.id][len(self.function_argument)]=[[item[0] for item in self.function_argument],self.list_of_token[self.index_begin_fun+1: self.index_end_fun]]
+        print(user_funct_dict)
+        if self.index_end_fun+1<len( self.list_of_token):
+             return self.index_end_fun+self.number_of_del_token
+        return None
+
 
 
 

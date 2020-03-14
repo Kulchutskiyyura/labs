@@ -42,6 +42,8 @@ def linker(string):
              else:
                 if list_with_list[i]==VAR and list_with_list[i+1]!=EQ:
                      token_list.append(Token(list_with_list[i],DEFINITION))
+                elif list_with_list[i]==FUN and list_with_list[i+1]!=EQ:
+                     token_list.append(Token(list_with_list[i],FUN_DEFINITION))
                 elif list_with_list[i]==ELSE:
                     token_list.append(Token(list_with_list[i],IF))
                 else:
