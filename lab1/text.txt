@@ -15,16 +15,16 @@ fun modul(number)
 	}
 }
 
-var x=modul("mamam");
-print(x);
+
 
 fun findTheBiger()
-{
+{	
 	var x=modul(int(input("enter value")));
 	var max=x;
 	while(x#0)
 	{
 		x=modul(int(input("enter value")));
+		
 		if(max<x)
 		{
 			max=x;
@@ -32,22 +32,41 @@ fun findTheBiger()
 	}
 	return max;
 }
+
+fun returnReverseString(number)
+{
+	var zmin=1;
+	var floatNumber=1.0;
+	var intNumber=1.0;
+	var stringg="";
+	while(intNumber#0)
+	{
+		zmin=number/10;
+		floatNumber=float(zmin);
+		intNumber=int(zmin);
+		zmin=int((floatNumber-intNumber)*10);
+		stringg=stringg+string(zmin);
+		number=intNumber;
+	}
+	return stringg;
+}
 var max=findTheBiger();
+var str=returnReverseString(max);
 print(max);
-if(max >20&max<50)
+print(str);
+var zmin=45;
+fun chack()
 {
-	print("okey it is big");
+	print("zmin= ",zmin);
+	return !-zmin+80;
 }
-elif(max>50)
+fun chack(value)
 {
-	print("okey it is huge");
+	print("zmin= ",zmin);
+	print("value= ",value);
+	return !-zmin+80;
 }
-elif(max<20&max>5)
-{
-	print("okey it is normal");
-}
-else
-{
-	print("okey it is small");
-}
+zmin=chack();
+value=chack("Helo World");
+var try=returnReverseString(findTheBiger());
 run

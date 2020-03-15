@@ -1,4 +1,6 @@
 def is_string(string):
+       # if len(string)==0:
+       #     return False
         if string[0]=='"' :
             st=string[1:]
             st=str(st)

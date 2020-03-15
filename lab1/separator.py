@@ -24,13 +24,16 @@ def separator(string,*args,main_sep=";"):
                          last_index=i+1
             elif string[i]=='"':
                 is_sub_str=True
-            elif string[i]=='<':
+            elif string[i]=='`':
+                string=string[:i]+" "+string[i+1:]
                 is_coment=True
         else:
             if is_sub_str:
                 if string[i]=='"':
                     is_sub_str=False
             if is_coment:
-                if string[i]=='>':
+                if string[i]=='`':
                       is_coment=False
+                string=string[:i]+" "+string[i+1:]
+
     return list_with_string

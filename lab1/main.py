@@ -49,10 +49,12 @@ while 1:
 #main_program='var₴x=f(4+5,8,4+9);'
 #main_program="fun₴m(a,b,c){var₴x=4; print(x); if(x#4){return₴type(8);}elif(x>2){return₴float(8);}}  var₴x=10; var₴v=m(4,5,8); print(x);"
 #main_program="fun₴m(a){print(a);}  fun₴m(a,b){print(a,b);}  m(2,4);"
+file.close()
 list_with_token=linker(main_program)
 print("main text" ,list_with_token)
 parser(list_with_token)
 print(var_dict)
+
 
 
        

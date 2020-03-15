@@ -1,7 +1,7 @@
 from constant import*
 from token import Token
 from check_function import cheack_if_number
-
+import copy 
 import parserr
 
 def run_function(function):
@@ -43,17 +43,21 @@ def run_function(function):
         
        
         if user_funct_dict[function[0]._value].get(len(function[1:])) !=None:
-            
-            for i in range(len(function[1:])):
-                local_var_dict[user_funct_dict[function[0]._value][len(function[1:])][0][i]._value]=function[1+i]
-            print("before parser in user function local_var_dict= ",local_var_dict)
-            print("global var_dict= ",var_dict)
-            return_value=parserr.parser(user_funct_dict[function[0]._value][len(function[1:])][1],local=True)
-            print("after parser in user function local_var_dict= ",local_var_dict)
-            print("global var_dict= ",var_dict)
+            local_var_dict_copy = copy.deepcopy(local_var_dict) 
             
             local_var_dict.clear()
-            
+            print("before argument input function",function[0]._value," local_var_dict= ",local_var_dict)
+            print("local_var_dict_copy= ",local_var_dict_copy)
+            for i in range(len(function[1:])):
+                local_var_dict[user_funct_dict[function[0]._value][len(function[1:])][0][i]._value]=function[1+i]
+            print("before parser in user function",function[0]._value," local_var_dict= ",local_var_dict)
+            print("global var_dict= ",var_dict)
+            return_value=parserr.parser(user_funct_dict[function[0]._value][len(function[1:])][1],local=True)
+            print("after parser in user function ",function[0]._value,"local_var_dict= ",local_var_dict)
+            print("global var_dict= ",var_dict)
+            print(" local_var_dict_copy",local_var_dict_copy)
+            local_var_dict.clear()
+            local_var_dict.update(local_var_dict_copy)
             print("local var dict after del= ",local_var_dict)
             if return_value==None:
                 return_value=Token("0",NUMBER)
