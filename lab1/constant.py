@@ -35,3 +35,4 @@ FUN="fun"
 funct_dict={"print":None,"type":1,"int":1,"float":1,"string":1,"input":1}
 user_funct_dict={}
 local_var_dict={}
+RETURN="return"

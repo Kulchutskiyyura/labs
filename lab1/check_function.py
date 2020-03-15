@@ -30,3 +30,6 @@ def is_comment(string):
     else :
         return False
 
+def cheack_if_arguments_is_the_same(arguments_list):
+    pass
+

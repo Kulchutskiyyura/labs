@@ -1,0 +1,53 @@
+fun modul(number)
+{
+	if(type(number)#"number")
+	{
+		print("eror");
+		return 0;
+	}
+	if(number>0)
+	{
+		return number;
+	}
+	else
+	{
+		return (-number);
+	}
+}
+
+var x=modul("mamam");
+print(x);
+
+fun findTheBiger()
+{
+	var x=modul(int(input("enter value")));
+	var max=x;
+	while(x#0)
+	{
+		x=modul(int(input("enter value")));
+		if(max<x)
+		{
+			max=x;
+		}
+	}
+	return max;
+}
+var max=findTheBiger();
+print(max);
+if(max >20&max<50)
+{
+	print("okey it is big");
+}
+elif(max>50)
+{
+	print("okey it is huge");
+}
+elif(max<20&max>5)
+{
+	print("okey it is normal");
+}
+else
+{
+	print("okey it is small");
+}
+run

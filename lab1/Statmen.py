@@ -31,7 +31,7 @@ class Asigment(Statment):
         self.list_of_token=list_of_token
         self.eror=False
         if local_var_dict.get(self.id)!=None:
-            self.local_varible=True
+            self.local_var=True
         elif var_dict.get(self.id)!=None:
             self.local_var=False
         else:
@@ -125,15 +125,15 @@ class Function_statment(Statment):
            self.id=list_of_token[0]._value
            interpretator=Interpretator(list_of_token[0:self.index])
            self.value=interpretator.var_defenition()
-           print("self.value(asigment)", self.value)
+           print("self.value(function)", self.value)
            self.list_of_token=list_of_token
     def next(self):
         if self.value==None:
-            print("asigment value is none")
+            print("function value is none")
             return None
            
         if id==None:
-            print("asigment id is none")
+            print("function id is none")
             return None
         print("function next")
         if self.index+1<len( self.list_of_token):
@@ -167,6 +167,33 @@ class Function_definition_statment(Statment):
         if self.index_end_fun+1<len( self.list_of_token):
              return self.index_end_fun+self.number_of_del_token
         return None
+
+class Return_statment(Statment):
+    def __init__(self, list_of_token):
+        self.index=find_index_of_token(list_of_token,END,BREAK)
+        
+        self.id=list_of_token[0]._value
+        interpretator=Interpretator(list_of_token[1:self.index])
+        self.value=interpretator.var_defenition()
+        print("self.value(return)", self.value)
+        self.list_of_token=list_of_token
+        self.eror=False
+    def next(self):
+       
+        if self.value==None:
+            print("asigment value is none")
+            return None
+           
+        if id==None:
+            print("asigment id is none")
+            return None
+        print("returnstatment_next_function")
+        if self.eror==True:
+            pass
+        return None
+           
+        
+
 
 
 

@@ -1,6 +1,7 @@
 from constant import*
 from token import Token
 from check_function import cheack_if_number
+
 import parserr
 
 def run_function(function):
@@ -38,13 +39,27 @@ def run_function(function):
         return_value=Input(function[1])
         return return_value
     else:
-        global local_var_dict
+
+        
+       
         if user_funct_dict[function[0]._value].get(len(function[1:])) !=None:
+            
             for i in range(len(function[1:])):
-                local_var_dict[function[0]._value]=user_funct_dict[function[0]._value][len(function[1:])][0][i]
-            return_value=parserr.parser(user_funct_dict[function[0]._value][len(function[1:])][1])
-            local_var_dict={}
+                local_var_dict[user_funct_dict[function[0]._value][len(function[1:])][0][i]._value]=function[1+i]
+            print("before parser in user function local_var_dict= ",local_var_dict)
+            print("global var_dict= ",var_dict)
+            return_value=parserr.parser(user_funct_dict[function[0]._value][len(function[1:])][1],local=True)
+            print("after parser in user function local_var_dict= ",local_var_dict)
+            print("global var_dict= ",var_dict)
+            
+            local_var_dict.clear()
+            
+            print("local var dict after del= ",local_var_dict)
+            if return_value==None:
+                return_value=Token("0",NUMBER)
             return return_value
+        else:
+            pass
 
 
 

@@ -6,6 +6,7 @@ from Statmen import If_statment
 from Statmen import While_statment
 from Statmen import Function_statment 
 from Statmen import Function_definition_statment
+from Statmen import Return_statment
 from constant import *
 from token import Token
 from separator import separator
@@ -13,16 +14,16 @@ from linker import linker
  
 def parser(list_of_token,local=False):
     
-    print('parser')
+    print('new parser')
     print("list of token in parser",list_of_token)
     token_index=0
     is_loop=False
     can_use_elif=False
     while(1):
-        #print("i")
+        #print("\n\n\n\nlocal var dict in parser ",local_var_dict)
         if list_of_token[token_index]._typee==VAR:
             if list_of_token[token_index+1]._value!=EQ or list_of_token[token_index+1]._typee!=SIGN:
-                print("dont have = after varible")
+                print("dont have = after varible","variable =" ,list_of_token[token_index]._value)
 
                 return None
             else:
@@ -39,14 +40,16 @@ def parser(list_of_token,local=False):
 
         elif list_of_token[token_index]._typee==DEFINITION:
              if list_of_token[token_index+2]._value!=EQ or list_of_token[token_index+2]._typee!=SIGN:
-                 print("dont have = after varible(parser)")
+                 print("dont have = after varible(parser)","variable =" ,list_of_token[token_index]._value)
                  return None
              if list_of_token[token_index+1]._typee!=VAR:
                  print("dont have varible(parser)")
                  return None
              if local:
+                 print("var def")
                  local_var_dict[list_of_token[token_index+1]._value]=Token(list_of_token[token_index+1]._value,VAR)
              else:
+                print("var def")
                 var_dict[list_of_token[token_index+1]._value]=Token(list_of_token[token_index+1]._value,VAR)
              asigment=Asigment(list_of_token[token_index:],True)
              next=asigment.next()
@@ -56,23 +59,25 @@ def parser(list_of_token,local=False):
                    token_index+=next
         elif list_of_token[token_index]._typee==FUN_DEFINITION:
             if  list_of_token[token_index+1]._typee!=FUNCTION:
-                 print("dont have = after varible(parser)")
+                 print("dont have fun after fun def (parser)", list_of_token[token_index+1])
                  return None
-            fun_definition=Function_definition_statment(list_of_token[1:])
+            print("function def  parser")
+            print("curent token list ")
+            fun_definition=Function_definition_statment(list_of_token[token_index+1:])
             next=fun_definition.next()
-            print(next)
+            print("next fun def",next)
             if next==None :
                    break
             else:
                    token_index+=next
-                   print(token_index)
+                   print("token_index fun def ",token_index)
 
         elif list_of_token[token_index]._typee==IF:
             if (list_of_token[token_index+1]._value!="(" or list_of_token[token_index+1]._typee!=BREAK) and list_of_token[token_index]._value!=ELSE:
                  print("dont have ( after if (parser)")
                  return None
             else:
-                 print("if parser")
+                 print("\n\n\nif parser\n\n\n")
                  if_statment= If_statment(list_of_token[token_index:])
                  if ((if_statment.id==ELSE or if_statment.id==ELIF) and not can_use_elif):
                      if_statment.value=Token("0",PATERN)
@@ -103,20 +108,31 @@ def parser(list_of_token,local=False):
             if (list_of_token[token_index+1]._value!="(" or list_of_token[token_index+1]._typee!=BREAK) :
                  print("dont have ( after function (parser)")
                  return None
+            print("function parser")
             function_statment=Function_statment(list_of_token[token_index:])
             next= function_statment.next()
             if next==None :
+                    print("function break")
                     break
             else:
+                    print("function")
                     print("next=",next)
                     print("token index",token_index)
                     print("list_of_token",list_of_token)
-                    token_index+=next        
+                    token_index+=next    
+        elif list_of_token[token_index]._typee==RETURN:
+             return_statment=Return_statment(list_of_token[token_index:])
+             print("return parser")
+             if return_statment.eror==False:
+                 return return_statment.value
         elif list_of_token[token_index]._typee==BREAK:
+            print("break parser")
             if token_index+1<len(list_of_token):
                 token_index+=1
             else:
                 break
+        
+    print("\n\n\n\n\n parser finish his work, local= ",local,"\n\n\n")
         
                     
 
