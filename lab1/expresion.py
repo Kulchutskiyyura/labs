@@ -1,5 +1,5 @@
 from constant import *
-from token import Token
+from Token import Token
 from linker import linker
 from separator import separator
 from check_function import *

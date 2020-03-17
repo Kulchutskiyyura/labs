@@ -1,9 +1,12 @@
 from constant import*
-from token import Token
+from Token import Token
 from check_function import cheack_if_number
 import copy 
 import parserr
-
+from html_function import find_tag
+from html_function import find_tag_with_html
+from html_function import get_tag_type
+from html_function import get_page
 def run_function(function):
     if function[0]._value not in funct_dict and function[0]._value not in user_funct_dict:
         return None
@@ -38,6 +41,34 @@ def run_function(function):
             return None
         return_value=Input(function[1])
         return return_value
+    elif function[0]._value=="get_page":
+        if len(function[1:])!=funct_dict["get_page"]:
+            return None
+        return_value=get_page(function[1]._value,True)
+        if return_value==None:
+            return Token("",STRING)
+        return return_value
+    elif function[0]._value=="find_tag":
+        if len(function[1:])!=funct_dict["find_tag"]:
+            return None
+        return_value=find_tag(function[1]._value,function[2]._value,int(function[3]._value),user_use=True)
+        if return_value==None:
+            return Token("",STRING)
+        return return_value
+    elif function[0]._value=="get_tag_type":
+        if len(function[1:])!=funct_dict["get_tag_type"]:
+            return None
+        return_value=get_tag_type(function[1]._value,user_use=True)
+        if return_value==None:
+            return Token("",STRING)
+        return return_value
+    elif function[0]._value=="find_tag_with_html":
+        if len(function[1:])!=funct_dict["find_tag_with_html"]:
+            return None
+        return_value=find_tag_with_html(function[1]._value,function[2]._value,int(function[3]._value),user_use=True)
+        if return_value==None:
+            return Token("",STRING)
+        return return_value
     else:
 
         
@@ -61,6 +92,8 @@ def run_function(function):
             print("local var dict after del= ",local_var_dict)
             if return_value==None:
                 return_value=Token("0",NUMBER)
+            else:
+                return_value=return_value.data
             return return_value
         else:
             pass

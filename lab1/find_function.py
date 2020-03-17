@@ -1,5 +1,5 @@
 from constant import*
-from token import Token
+from Token import Token
 def find_index_of_token(token_list,value,type):
     for i in range(len(token_list)):
         if token_list[i]._value==value and token_list[i]._typee==type:

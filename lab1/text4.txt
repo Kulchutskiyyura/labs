@@ -1,0 +1,5 @@
+var data=get_page("http://stackoverflow.com");
+var second_div=find_tag("d",data,2);
+var type_of_first_tag=get_tag_type(data);
+data=0;
+run

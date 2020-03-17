@@ -37,6 +37,9 @@
     <Compile Include="function.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="html_function.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="linker.py">
       <SubType>Code</SubType>
     </Compile>
@@ -49,6 +52,9 @@
     <Compile Include="parserr.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="parser_return.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="separator.py">
       <SubType>Code</SubType>
     </Compile>
@@ -56,7 +62,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.py" />
-    <Compile Include="token.py">
+    <Compile Include="Token.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="user_function.py">

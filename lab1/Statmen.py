@@ -7,6 +7,7 @@ from expresion import find_index_of_token
 from expresion import rfind_index_of_token
 from expresion import find_end_of_brackets_index 
 from expresion import find_function_argument
+from check_function import cheack_if_arguments_is_the_same
 #from math import a
 
 class Statment(ABC):
@@ -155,6 +156,9 @@ class Function_definition_statment(Statment):
         self.function_argument=find_function_argument(list_of_token[: self.index_begin_fun])
         if (user_funct_dict.get(self.id)!=None and user_funct_dict[self.id].get(len(self.function_argument))!=None )or funct_dict.get(self.id)!=None:
             self.eror=True
+        if cheack_if_arguments_is_the_same(self.function_argument):
+            print("function have the same argument(function defenition)")
+            self.eror=True
         self.list_of_token=list_of_token
     def next(self):
         if self.eror:
@@ -191,6 +195,7 @@ class Return_statment(Statment):
         if self.eror==True:
             pass
         return None
+
            
         
 

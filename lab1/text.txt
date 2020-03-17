@@ -1,4 +1,4 @@
-fun modul(number)
+ fun modul(number)
 {
 	if(type(number)#"number")
 	{
@@ -11,7 +11,7 @@ fun modul(number)
 	}
 	else
 	{
-		return (-number);
+		return -number;
 	}
 }
 

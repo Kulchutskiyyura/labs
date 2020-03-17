@@ -8,7 +8,8 @@ from Statmen import Function_statment
 from Statmen import Function_definition_statment
 from Statmen import Return_statment
 from constant import *
-from token import Token
+from Token import Token
+from parser_return import Parser_return
 from separator import separator
 from linker import linker
  
@@ -24,7 +25,7 @@ def parser(list_of_token,local=False):
         if list_of_token[token_index]._typee==VAR:
             if list_of_token[token_index+1]._value!=EQ or list_of_token[token_index+1]._typee!=SIGN:
                 print("dont have = after varible","variable =" ,list_of_token[token_index]._value)
-
+                print("next token= ",list_of_token[token_index-5:token_index+3])
                 return None
             else:
                 print("asigment")
@@ -100,8 +101,16 @@ def parser(list_of_token,local=False):
                     break
                  elif next==0:
                     print("\n\n next =0 \n\n\n")
-                    parser(list_of_token[token_index+while_statment.index_begin_while+1:while_statment.index_end_while+token_index])
-                    token_index+=next
+                    parser_return=parser(list_of_token[token_index+while_statment.index_begin_while+1:while_statment.index_end_while+token_index])
+                    if parser_return==None:
+                        token_index+=next
+                    elif type(parser_return)==Parser_return:
+                        if parser_return.return_type==RETURN:
+                            return parser_return
+                        elif parser_return.return_type==LOOP_BREAK:
+                            token_index+=while_statment.index_end_while
+                    else:
+                        print("\n\neror with parser return(LOOP parser)\n\n\n")
                  else:
                      token_index+=next
         elif list_of_token[token_index]._typee==FUNCTION:
@@ -121,10 +130,15 @@ def parser(list_of_token,local=False):
                     print("list_of_token",list_of_token)
                     token_index+=next    
         elif list_of_token[token_index]._typee==RETURN:
+             if local==False:
+                 print("\n\n return in global space \n\n\n")
              return_statment=Return_statment(list_of_token[token_index:])
              print("return parser")
              if return_statment.eror==False:
-                 return return_statment.value
+                 return Parser_return (return_statment.value,RETURN)
+        elif list_of_token[token_index]._typee==LOOP_BREAK:
+            print("break loop  parser")
+            return Parser_return (None,LOOP_BREAK)
         elif list_of_token[token_index]._typee==BREAK:
             print("break parser")
             if token_index+1<len(list_of_token):

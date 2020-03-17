@@ -1,6 +1,7 @@
 from parserr import parser
 from constant import *
 from parserr import linker
+
 #var q=((4+5)*2)+(7-7.2)/5; помилка
 #i=Interpetator("var b=6+8+a+3") 
 #i.var_defenition()
@@ -9,11 +10,12 @@ from parserr import linker
 # використання юзер функції всередині іншої юзер функції
 # cстворити кдас для юзерфункції
 main_program="" 
-file = open('text.txt', 'r')
+file = open('text4.txt', 'r')
 while 1:
-    text=file.readline()    #input("<input>")
+    text=file.readline()    
+    #text=input("<input>")
     #list_with_code=text.split("\n")
-                  #interpretator=Interpretator(text)
+    #interpretator=Interpretator(text)
                    #interpretator.var_defenition()
     if text=="run":
         break

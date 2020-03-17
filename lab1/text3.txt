@@ -1,0 +1,21 @@
+var x=10;
+var m=0;
+fun m()
+{
+while(x>0)
+{
+	if(x$6)
+	{
+		break;
+	}
+	elif(x$5)
+	{
+		return 5;
+	}
+	x=x-1;
+	m=m+1;
+}
+print("break is");
+}
+m();
+run
