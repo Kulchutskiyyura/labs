@@ -1,0 +1,3 @@
+{
+    "files": ["client.py","Socket_Message.py","Command.py","Mediator.py"]
+}
